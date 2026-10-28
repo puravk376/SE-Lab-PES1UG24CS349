@@ -4,7 +4,6 @@ import hashlib
 import logging
 import os
 import secrets
-import csv
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -52,16 +51,14 @@ def return_book(book_id):
 
 def check_availability(book_id):
     """Return True if at least one copy of the book is on the shelf."""
-    late_fee = 1.50
     book = catalog.get(book_id)
-    if book == None:
+    if book is None:
         return False
     return book["copies"] > 0
 
 
 def calculate_fine(days_overdue, rate_per_day=DAILY_FINE_RATE):
     """Return the overdue fine for the given number of days."""
-    days = days_overdue
     return days_overdue * rate_per_day
 
 
